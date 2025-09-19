@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  backend:
+    build: .
+    container_name: quality-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app  # Monta el código para recarga en caliente
+    env_file:
+      - .env
