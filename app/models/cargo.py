@@ -11,7 +11,7 @@ class Cargo(Base):
     nombre = Column(String(50), nullable=False)
     idLaboratorio = Column(Integer, ForeignKey("Laboratorios.laboratorios.idLaboratorio"))
 
-    laboratorio = relationship("Laboratorio", back_populates="cargo")
+    laboratorio = relationship("Laboratorio", back_populates="cargos")
     personal = relationship("Personal", back_populates="cargo")
     
 

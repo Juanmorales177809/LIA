@@ -42,8 +42,8 @@ class PersonalListItem(BaseModel):
     nombre: str
     estado: bool = True
     
-    cargo: Optional[CargoOut] = None
-    laboratorio: Optional[LaboratorioOut] = None
+    cargo: str | None = None
+    laboratorio: str | None = None
 
     class Config:
-        from_attributes = True
+        from_attributes = True  # 👈 Pydantic v2

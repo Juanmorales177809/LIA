@@ -21,8 +21,6 @@ def get_personal_list(
     db: Session = Depends(get_db)
 ):
     personas = crud.get_list_active(db, skip=skip, limit=limit)
-    if not personas:
-        raise HTTPException(status_code=404, detail="No se encontraron personas")
     return personas
 
 @router.post("/", response_model=PersonalOut)

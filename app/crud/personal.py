@@ -55,11 +55,12 @@ def get_list_active(db: Session, skip: int = 0, limit: int = 100):
         db.query(
             Personal.idPersona.label("idPersona"),
             Personal.nombre.label("nombre"),
+            Personal.estado.label("estado"),
             Cargo.nombre.label("cargo"),
             Laboratorio.nombre.label("laboratorio"),
         )
         .join(Cargo, Cargo.idCargo == Personal.idCargo)
-        .join(Laboratorio, Laboratorio.idLaboratorio == Cargo.idLaboratorio)
+        .outerjoin(Laboratorio, Laboratorio.idLaboratorio == Cargo.idLaboratorio)
         .filter(Personal.estado.is_(True))
         .order_by(Personal.nombre.asc())
         .offset(skip)
@@ -71,6 +72,7 @@ def get_list_active(db: Session, skip: int = 0, limit: int = 100):
         {
             "idPersona": r.idPersona,
             "nombre": r.nombre,
+            "estado": r.estado,
             "cargo": r.cargo,
             "laboratorio": r.laboratorio,
         }
