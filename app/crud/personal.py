@@ -3,10 +3,11 @@ from sqlalchemy import select
 from app.models.cargo import Cargo
 from app.models.laboratorio import Laboratorio
 from app.models.personal import Personal
-from app.schemas.personal import PersonalCreate, PersonalUpdate
+from app.schemas.personal import PersonalCreate, PersonalUpdate, PersonalDetalleOut
 from sqlalchemy.orm import Session, joinedload
 from app.models.autorPublicacion import AutorPublicacion
 from app.models.publicacion import Publicacion
+from typing import Optional
 
 def get_personal_all(db: Session):
     return db.query(Personal).all()
@@ -79,4 +80,30 @@ def get_list_active(db: Session, skip: int = 0, limit: int = 100):
         for r in rows
     ]
 
+def get_detalle(db: Session, id_persona: int) -> Optional[PersonalDetalleOut]:
+    persona = (
+        db.query(Personal)
+        .options(
+            joinedload(Personal.cargo).joinedload(Cargo.laboratorio)
+        )
+        .filter(Personal.idPersona == id_persona)
+        .first()
+    )
+    if not persona:
+        return None
 
+    
+    nombre_cargo = getattr(persona.cargo, "nombreCargo", None) or getattr(persona.cargo, "nombre", None)
+    lab = getattr(persona.cargo, "laboratorio", None)
+    nombre_lab = getattr(lab, "nombre", None)
+
+    return PersonalDetalleOut(
+        idPersona=persona.idPersona,
+        nombre=persona.nombre,
+        documento=persona.documento,
+        correo=persona.correo,
+        telefono=persona.telefono,
+        estado=persona.estado,
+        nombreCargo=nombre_cargo,
+        nombreLaboratorio=nombre_lab,
+    )

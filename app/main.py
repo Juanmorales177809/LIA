@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.api import endpoints, laboratorio, personal, cargo, formacion, publicacion, experiencia
+from app.api import endpoints, laboratorio, personal, cargo, formacion, publicacion, experiencia, media
 from fastapi.middleware.cors import CORSMiddleware
 import os
 
@@ -12,6 +12,7 @@ app.include_router(cargo.router, prefix="/api")
 app.include_router(formacion.router, prefix="/api")
 app.include_router(publicacion.router, prefix="/api")
 app.include_router(experiencia.router, prefix="/api")
+app.include_router(media.router, prefix="/api")
 # app.include_router(responsabilidades.router, prefix="/api")
 
 app.add_middleware(

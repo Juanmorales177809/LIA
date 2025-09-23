@@ -11,8 +11,7 @@ class PersonalBase(BaseModel):
     correo: str
     telefono: Optional[str] = None
     estado: bool = True
-    laboratorio: LaboratorioOut | None = None
-    cargo: CargoOut | None = None
+    # cargo: CargoOut | None = None
     
     class Config:
         from_attributes = True   # 👈 Pydantic v2
@@ -47,3 +46,15 @@ class PersonalListItem(BaseModel):
 
     class Config:
         from_attributes = True  # 👈 Pydantic v2
+        
+class PersonalDetalleOut(BaseModel):
+    idPersona: int
+    nombre: str
+    documento: str
+    correo: str
+    telefono: Optional[str] = None
+    estado: bool = True
+    
+    nombreCargo: Optional[str] = None
+    nombreLaboratorio: Optional[str] = None
+

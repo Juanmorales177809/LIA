@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from typing import List
 from app.db import get_db
-from app.schemas.personal import PersonalCreate, PersonalUpdate, PersonalOut, PersonalBase
+from app.schemas.personal import PersonalCreate, PersonalUpdate, PersonalOut, PersonalBase, PersonalDetalleOut
 from app.crud import personal as crud
 from app.schemas.personal import PersonalListItem
 
@@ -71,3 +71,10 @@ def get_personal_cv(id_persona: int, db: Session = Depends(get_db)):
         "experiencias": persona.experiencias,
         "publicaciones": pubs
     }
+
+@router.get("/{id_persona}/detalle", response_model=PersonalDetalleOut)
+def get_persona_detalle(id_persona: int, db: Session = Depends(get_db)):
+    dto = crud.get_detalle(db, id_persona)
+    if not dto:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Persona no encontrada")
+    return dto
