@@ -57,7 +57,7 @@ def get_list_active(db: Session, skip: int = 0, limit: int = 100):
             Personal.idPersona.label("idPersona"),
             Personal.nombre.label("nombre"),
             Personal.estado.label("estado"),
-            Cargo.nombre.label("cargo"),
+            Cargo.nombreCargo.label("nombreCargo"),
             Laboratorio.nombre.label("laboratorio"),
         )
         .join(Cargo, Cargo.idCargo == Personal.idCargo)
@@ -74,7 +74,7 @@ def get_list_active(db: Session, skip: int = 0, limit: int = 100):
             "idPersona": r.idPersona,
             "nombre": r.nombre,
             "estado": r.estado,
-            "cargo": r.cargo,
+            "cargo": r.nombreCargo,
             "laboratorio": r.laboratorio,
         }
         for r in rows

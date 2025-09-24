@@ -14,4 +14,3 @@ class Laboratorio(Base):
     ubicacion = Column(String(20), nullable=True)
     idOnac = Column(String(20), nullable=True)
     cargos = relationship("Cargo", back_populates="laboratorio")
-

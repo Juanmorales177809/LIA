@@ -19,10 +19,19 @@ class CargoUpdate(BaseModel):
     idLaboratorio: Optional[int] = None
 
 
-# -------- Read --------
-class CargoOut(CargoBase):
-    idCargo: int
+
+# ------- Read con laboratorio anidado --------
+class LaboratorioOut(BaseModel):
+    idLaboratorio: int
     nombre: str
 
     class Config:
-        from_attributes = True  # Pydantic v2
+        from_attributes = True  # Pydantic v2 (antes orm_mode = True)
+
+class CargoOut(BaseModel):
+    idCargo: int
+    nombreCargo: str
+    laboratorio: Optional[LaboratorioOut]  # 👈 relación anidada
+
+    class Config:
+        from_attributes = True

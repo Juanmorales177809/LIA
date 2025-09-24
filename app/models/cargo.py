@@ -8,8 +8,9 @@ class Cargo(Base):
     __table_args__ = {"schema": "Cargos"}
 
     idCargo = Column(Integer, primary_key=True, index=True)
-    nombre = Column(String(50), nullable=False)
+    nombreCargo = Column(String(50), nullable=False)
     idLaboratorio = Column(Integer, ForeignKey("Laboratorios.laboratorios.idLaboratorio"))
+
 
     laboratorio = relationship("Laboratorio", back_populates="cargos")
     personal = relationship("Personal", back_populates="cargo")
