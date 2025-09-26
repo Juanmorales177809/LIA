@@ -4,13 +4,14 @@ from typing import Optional
 
 # -------- Base --------
 class CargoBase(BaseModel):
-    nombre: str
+    nombreCargo: str
     idLaboratorio: Optional[int] = None
 
 
 # -------- Create --------
 class CargoCreate(CargoBase):
     pass
+    
 
 
 # -------- Update (parcial) --------
